@@ -1,7 +1,7 @@
 {
-  "name": "react-skeleton",
+  "name": "arcade",
   "version": "0.1.0",
-  "homepage": "https://adamjanicki.xyz/react-skeleton",
+  "homepage": "https://adamjanicki.xyz/arcade",
   "private": true,
   "dependencies": {
     "@adamjanicki/ui": "latest",

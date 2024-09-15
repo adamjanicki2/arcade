@@ -7,7 +7,7 @@ import NotFound from "src/pages/NotFound";
 
 const App = () => {
   return (
-    <BrowserRouter basename="/react-skeleton">
+    <BrowserRouter basename="/arcade">
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />

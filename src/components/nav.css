@@ -13,18 +13,16 @@
   margin: 15px 0;
 }
 
-.nav-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
 .navlink-li {
   margin-left: 2rem;
 }
 
 .navlink {
   color: black;
+}
+
+.nav-logo {
+  width: 48px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -50,5 +48,8 @@
     width: 100%;
     display: flex;
     margin: 0.5rem 0;
+  }
+  .nav-logo {
+    width: 32px;
   }
 }
