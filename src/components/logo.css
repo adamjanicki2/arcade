@@ -1,0 +1,41 @@
+:root {
+  --controller-fill: #333;
+  --controller-outline: #11ff55;
+  --button-green: #00ff00;
+  --button-red: #ff0000;
+  --button-blue: #00c0ff;
+  --button-yellow: #ffff00;
+}
+
+[data-theme="light"] {
+  --controller-fill: #e9e9e9;
+  --controller-outline: #000;
+  --button-green: #28a745;
+  --button-red: #e63946;
+  --button-blue: #0063b2;
+  --button-yellow: #ffb410;
+}
+
+.controller-bg {
+  fill: var(--controller-fill);
+}
+
+.logo {
+  color: var(--controller-outline);
+}
+
+.button-green {
+  fill: var(--button-green);
+}
+
+.button-red {
+  fill: var(--button-red);
+}
+
+.button-blue {
+  fill: var(--button-blue);
+}
+
+.button-yellow {
+  fill: var(--button-yellow);
+}

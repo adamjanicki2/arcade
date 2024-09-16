@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const useDocumentTitle = (title: string) => {
   useEffect(() => {
-    document.title = title;
+    document.title = title.toUpperCase();
   }, [title]);
 };
 

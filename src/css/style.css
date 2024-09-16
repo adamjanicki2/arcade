@@ -1,17 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root,
+[data-theme="dark"] {
+  --background: black;
+  --main: #11ff55;
+  --ajui-link-color: #11ff55;
+  --ajui-select-border: #11ff55;
+  --ajui-focus-ring-color: #11ff55;
+}
+
+[data-theme="light"] {
+  --background: white;
+  --main: black;
+  --ajui-link-color: black;
+  --ajui-select-border: black;
+  --ajui-focus-ring-color: black;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-family: "Press Start 2P", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
   overflow-x: hidden;
+  font-size: 80%;
+  background-color: var(--background);
+  border-color: var(--main);
+  color: var(--main);
 }
 
 .page-title-text {
-  font-size: calc(2.5rem + 1vw);
+  font-size: calc(1.5rem + 1vw);
   font-weight: 700;
 }
 
 .bordering {
   border: 2px solid red;
+}
+
+.w-70-90 {
+  width: 70%;
+}
+
+@media only screen and (max-width: 768px) {
+  .w-70-90 {
+    width: 90%;
+  }
+}
+
+p {
+  line-height: 1.5;
 }

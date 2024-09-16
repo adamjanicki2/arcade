@@ -3,11 +3,12 @@ import { TripleFlip as Hamburger } from "@adamjanicki/ui";
 import "src/components/nav.css";
 import Link, { UnstyledLink } from "src/components/Link";
 import { useLocation } from "react-router-dom";
-import { ReactComponent as Logo } from "src/img/logo.svg";
+import Text from "src/components/Text";
+import Logo from "src/components/Logo";
 
 type NavlinkProps = {
   to: string;
-  children: React.ReactNode;
+  children: string;
 };
 
 const Nav = () => {
@@ -19,14 +20,16 @@ const Nav = () => {
     closeMenu();
   }, [pathname]);
 
-  const Navlink = (props: NavlinkProps) => (
+  const Navlink = ({ to, children }: NavlinkProps) => (
     <li className="navlink-li">
-      <Link className="navlink" onClick={closeMenu} {...props} />
+      <Link className="navlink" onClick={closeMenu} to={to}>
+        <Text>{children}</Text>
+      </Link>
     </li>
   );
 
   return (
-    <nav className="flex items-center justify-between w-100 nav pv2 ph4">
+    <nav className="flex items-center justify-between w-100 nav pv2 ph4 bb">
       <div className="flex items-center justify-between bar-container">
         <UnstyledLink to="/">
           <Logo className="nav-logo" />
@@ -40,6 +43,7 @@ const Nav = () => {
         style={{ display: open ? "flex" : undefined }}
       >
         <Navlink to="/">Home</Navlink>
+        <Navlink to="/games/">Games</Navlink>
         <Navlink to="/about/">About</Navlink>
       </ul>
     </nav>

@@ -1,11 +1,20 @@
+import React from "react";
+import Link from "src/components/Link";
+import Text from "src/components/Text";
 import { useDocumentTitle } from "src/hooks";
 import type { Children } from "src/types";
+
+type Breadcrumb = {
+  name: string;
+  to: string;
+};
 
 type Props = {
   children: Children;
   title: string;
   documentTitle?: string;
   titleClass?: string;
+  breadcrumbs: Breadcrumb[];
 };
 
 const PageWrapper = ({
@@ -13,6 +22,7 @@ const PageWrapper = ({
   title,
   documentTitle,
   titleClass = "",
+  breadcrumbs,
 }: Props) => {
   useDocumentTitle(`${documentTitle ?? title}`);
 
@@ -21,7 +31,23 @@ const PageWrapper = ({
       className="flex flex-column items-center w-100 pb3"
       style={{ minHeight: "70vh" }}
     >
-      <h1 className={`page-title-text tc ${titleClass}`}>{title}</h1>
+      <div
+        className="flex items-center w-100 ph4 mt3"
+        style={{ whiteSpace: "pre-wrap" }}
+      >
+        {breadcrumbs.map(({ name, to }) => (
+          <React.Fragment key={name}>
+            <Link to={to}>
+              <Text>{name}</Text>
+            </Link>
+            <span className="mh2">{">"}</span>
+          </React.Fragment>
+        ))}
+        <Text>{title}</Text>
+      </div>
+      <h1 className={`page-title-text tc ${titleClass}`}>
+        {title.toUpperCase()}
+      </h1>
       {children}
     </div>
   );

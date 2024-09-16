@@ -1,0 +1,10 @@
+.link {
+  text-decoration: dashed underline;
+  opacity: 1 !important;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    text-decoration: 2px solid underline;
+  }
+}
