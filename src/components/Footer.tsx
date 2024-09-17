@@ -7,9 +7,8 @@ const options = ["system", "light", "dark"];
 const Footer = () => {
   const { setPreference, preference } = useThemePreference();
   return (
-    <footer className="pt4 ph2 flex flex-column items-center justify-center w-100 bt">
+    <footer className="pt4 ph2 flex flex-column items-center justify-center w-100 bt bw1">
       <Select
-        corners="sharp"
         options={options}
         value={preference}
         onChange={(e) => setPreference(e.target.value as any)}

@@ -1,5 +1,4 @@
 import PageWrapper from "src/components/PageWrapper";
-import Text from "src/components/Text";
 import { useMobile } from "src/hooks";
 import { Children } from "src/types";
 
@@ -20,10 +19,10 @@ export default function GamePage({ title, children, requiresDesktop }: Props) {
       ]}
     >
       {requiresDesktop && isMobile ? (
-        <p>
-          <Text>Uh-oh!</Text>
+        <p className="tc">
+          Uh-oh!
           <br />
-          <Text>You need a bigger device to play this game.</Text>
+          You need a bigger device to play this game.
         </p>
       ) : (
         children

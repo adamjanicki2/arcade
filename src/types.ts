@@ -5,3 +5,8 @@ export type GameListing = {
   desc: string;
   Component: React.ComponentType;
 };
+
+export type Position = {
+  x: number;
+  y: number;
+};

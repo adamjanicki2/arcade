@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "src/components/Link";
-import Text from "src/components/Text";
 import { useDocumentTitle } from "src/hooks";
 import type { Children } from "src/types";
 
@@ -37,13 +36,11 @@ const PageWrapper = ({
       >
         {breadcrumbs.map(({ name, to }) => (
           <React.Fragment key={name}>
-            <Link to={to}>
-              <Text>{name}</Text>
-            </Link>
+            <Link to={to}>{name}</Link>
             <span className="mh2">{">"}</span>
           </React.Fragment>
         ))}
-        <Text>{title}</Text>
+        {title}
       </div>
       <h1 className={`page-title-text tc ${titleClass}`}>
         {title.toUpperCase()}
