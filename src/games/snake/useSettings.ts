@@ -1,11 +1,5 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-
-export const DEFAULT_SETTINGS: Settings = {
-  checkWalls: false,
-  fps: 12,
-  gridSize: 20,
-};
+import { makeUseSettingsHook } from "src/games/common/settings";
+import type { Config } from "src/games/common/GamePage";
 
 export type Settings = {
   checkWalls: boolean;
@@ -13,26 +7,23 @@ export type Settings = {
   gridSize: number;
 };
 
-export type SettingsStore = {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
+export const defaultSettings: Settings = {
+  checkWalls: false,
+  fps: 12,
+  gridSize: 20,
 };
 
-const useSettings = create(
-  persist<SettingsStore>(
-    (set) => ({
-      settings: DEFAULT_SETTINGS,
-      setSettings: (settings: Settings) => {
-        settings.fps = Math.max(1, settings.fps);
-        settings.gridSize = Math.max(4, settings.gridSize);
-        set({ settings });
-      },
-    }),
-    {
-      name: "arcade-snake-settings",
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
+export const labels = {
+  checkWalls: "Check Walls",
+  fps: "FPS",
+  gridSize: "Grid Size",
+} as const;
+
+const useSettings = makeUseSettingsHook<Settings>("snake", defaultSettings);
+export const settings: Config<Settings>["settings"] = {
+  useSettings,
+  defaultSettings,
+  labels,
+};
 
 export default useSettings;

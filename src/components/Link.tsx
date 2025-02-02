@@ -12,7 +12,7 @@ const Link = ({ className, ...props }: Props) => (
   <UILink
     LinkElement={RouterLink}
     {...props}
-    className={classNames("link", className)}
+    className={classNames("arcade-link", className)}
   />
 );
 
