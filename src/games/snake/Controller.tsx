@@ -1,9 +1,6 @@
 import { Badge, Button } from "@adamjanicki/ui";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Canvas from "src/components/Canvas";
-import SmallButton from "src/components/SmallButton";
-import Help from "src/games/snake/Help";
-import Settings from "src/games/snake/Settings";
 import Snake from "src/games/snake/snake";
 import useSettings from "src/games/snake/useSettings";
 import { useTheme } from "src/hooks";
@@ -22,7 +19,7 @@ const opposite = (dir1: string, dir2: string) =>
   (dir1 === "ArrowUp" && dir2 === "ArrowDown") ||
   (dir1 === "ArrowDown" && dir2 === "ArrowUp");
 
-export default function SnakeController() {
+export default function Controller() {
   const { settings } = useSettings();
   const { checkWalls, fps, gridSize } = settings;
   const interval = fpsToMS(fps);
@@ -39,9 +36,6 @@ export default function SnakeController() {
 
   const [isRunning, setIsRunning] = useState(false);
   const [direction, setDirection] = useState<string | null>(null);
-
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
 
   const paintCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -189,20 +183,10 @@ export default function SnakeController() {
           }}
           multiplicity={snake.current.gridSize}
         />
-        <div className="flex items-center justify-end mb2">
-          <SmallButton className="mr2" onClick={() => setHelpOpen(!helpOpen)}>
-            Help
-          </SmallButton>
-          <SmallButton onClick={() => setSettingsOpen(!settingsOpen)}>
-            Settings
-          </SmallButton>
-        </div>
         <div className="flex items-center justify-center">
           <Button onClick={resetGameState}>RESTART</Button>
         </div>
       </div>
-      <Settings open={settingsOpen} setOpen={setSettingsOpen} />
-      <Help open={helpOpen} setOpen={setHelpOpen} />
     </>
   );
 }

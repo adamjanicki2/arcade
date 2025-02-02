@@ -1,10 +1,10 @@
-.link {
+.arcade-link {
   text-decoration: dashed underline;
   opacity: 1 !important;
 }
 
 @media (hover: hover) {
-  .link:hover {
+  .arcade-link:hover {
     text-decoration: 2px solid underline;
   }
 }
