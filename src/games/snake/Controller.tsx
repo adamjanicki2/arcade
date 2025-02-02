@@ -19,7 +19,7 @@ const opposite = (dir1: string, dir2: string) =>
   (dir1 === "ArrowUp" && dir2 === "ArrowDown") ||
   (dir1 === "ArrowDown" && dir2 === "ArrowUp");
 
-export default function SnakeController() {
+export default function Controller() {
   const { settings } = useSettings();
   const { checkWalls, fps, gridSize } = settings;
   const interval = fpsToMS(fps);

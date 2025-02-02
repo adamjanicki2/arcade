@@ -1,10 +1,10 @@
 import GamePage from "src/games/common/GamePage";
-import SortController from "src/games/sort/SortController";
+import Controller from "src/games/sort/Controller";
 
 export default function Sort() {
   return (
     <GamePage title="Sort" config={{}}>
-      <SortController />
+      <Controller />
     </GamePage>
   );
 }

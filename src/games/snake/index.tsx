@@ -1,5 +1,5 @@
 import GamePage, { type Config } from "src/games/common/GamePage";
-import SnakeController from "src/games/snake/SnakeController";
+import Controller from "src/games/snake/Controller";
 import { settings, type Settings } from "src/games/snake/useSettings";
 
 const config: Config<Settings> = {
@@ -38,7 +38,7 @@ const config: Config<Settings> = {
 export default function Snake() {
   return (
     <GamePage title="Snake" requiresDesktop config={config}>
-      <SnakeController />
+      <Controller />
     </GamePage>
   );
 }
