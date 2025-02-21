@@ -1,10 +1,11 @@
-import { Badge, Button } from "@adamjanicki/ui";
+import { Badge } from "@adamjanicki/ui";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Canvas from "src/components/Canvas";
 import Snake from "src/games/snake/snake";
 import useSettings from "src/games/snake/useSettings";
 import { useTheme } from "src/hooks";
-import { fpsToMS } from "src/util";
+import { bound, fpsToMS } from "src/util";
+import StatusBadge, { type Status } from "src/components/StatusBadge";
 
 const DIR_MAP = new Map([
   ["ArrowLeft", { x: -1, y: 0 }],
@@ -21,7 +22,10 @@ const opposite = (dir1: string, dir2: string) =>
 
 export default function Controller() {
   const { settings } = useSettings();
-  const { checkWalls, fps, gridSize } = settings;
+  let { checkWalls, fps, gridSize } = settings;
+  fps = bound(fps, 1, 60);
+  gridSize = bound(gridSize, 5, 100);
+
   const interval = fpsToMS(fps);
   const theme = useTheme();
   const isDark = theme === "dark";
@@ -146,20 +150,15 @@ export default function Controller() {
     };
   }, [isRunning, direction, handleKeyDown, step, paintCanvas]);
 
-  let labelType;
-  let labelContent;
+  let status: Status;
   if (gameOver) {
-    labelType = "error";
-    labelContent = "GAME OVER";
+    status = "gameover";
   } else if (isRunning && direction) {
-    labelType = "success";
-    labelContent = "ONGOING";
+    status = "ongoing";
   } else if (!direction) {
-    labelType = "info";
-    labelContent = "AWAITING";
+    status = "awaiting";
   } else {
-    labelType = "warning";
-    labelContent = "PAUSED";
+    status = "paused";
   }
 
   return (
@@ -170,7 +169,7 @@ export default function Controller() {
         }}
       >
         <div className="flex justify-between">
-          <Badge type={labelType as any}>{labelContent}</Badge>
+          <StatusBadge status={status} />
           <Badge type="static">SCORE: {score}</Badge>
         </div>
         <Canvas
@@ -183,9 +182,6 @@ export default function Controller() {
           }}
           multiplicity={snake.current.gridSize}
         />
-        <div className="flex items-center justify-center">
-          <Button onClick={resetGameState}>RESTART</Button>
-        </div>
       </div>
     </>
   );

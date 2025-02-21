@@ -1,4 +1,5 @@
-import React from "react";
+import { Button } from "@adamjanicki/ui";
+import React, { useState } from "react";
 import PageWrapper from "src/components/PageWrapper";
 import HelpButton from "src/games/common/HelpButton";
 import { GeneralSettings, UseSettingsHook } from "src/games/common/settings";
@@ -11,6 +12,7 @@ type Props<T> = {
   children: Children;
   requiresDesktop?: boolean;
   config: Config<T>;
+  containerClassName?: string;
 };
 
 export type Config<T> = {
@@ -20,6 +22,7 @@ export type Config<T> = {
     labels: Record<string, string>;
   };
   help?: React.ReactNode;
+  restartEligible?: boolean;
 };
 
 export default function GamePage<T extends GeneralSettings>({
@@ -27,9 +30,11 @@ export default function GamePage<T extends GeneralSettings>({
   children,
   requiresDesktop,
   config,
+  containerClassName,
 }: Props<T>) {
   const isMobile = useMobile();
-  const { help, settings } = config;
+  const { help, settings, restartEligible } = config;
+  const [key, setKey] = useState(0);
   return (
     <PageWrapper
       title={title}
@@ -45,8 +50,13 @@ export default function GamePage<T extends GeneralSettings>({
           You need a bigger device to play this game.
         </p>
       ) : (
-        <div>
+        <div key={key} className={containerClassName}>
           {children}
+          {restartEligible && (
+            <div className="flex justify-center mt2">
+              <Button onClick={() => setKey((key + 1) % 2)}>Restart</Button>
+            </div>
+          )}
           {(help || settings) && (
             <div className="flex items-center justify-end mt2">
               {help && <HelpButton className="mr2">{help}</HelpButton>}

@@ -38,8 +38,8 @@ export default function SettingsButton<T extends GeneralSettings>({
         >
           <div className="flex flex-column">
             {Object.entries(currentSettings).map(
-              ([settingsKey, settingsValue]) => (
-                <Field title={labels[settingsKey]}>
+              ([settingsKey, settingsValue], i) => (
+                <Field title={labels[settingsKey]} key={i}>
                   <CustomInput
                     label={labels[settingsKey]}
                     settingsValue={settingsValue as any}

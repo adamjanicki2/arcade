@@ -16,8 +16,8 @@ const config: Config<Settings> = {
         <li>Use the arrow keys to navigate the board</li>
         <li>Eat as many apples as possible to get the highest score</li>
         <li>
-          Adjust Adjust your settings by clicking on the button in the bottom
-          right corner
+          Adjust your settings by clicking on the button in the bottom right
+          corner
         </li>
       </ol>
       <br />
@@ -33,6 +33,7 @@ const config: Config<Settings> = {
     </>
   ),
   settings,
+  restartEligible: true,
 };
 
 export default function Snake() {
