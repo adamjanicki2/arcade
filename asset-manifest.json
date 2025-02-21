@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/arcade/static/css/main.d147dd5b.css",
-    "main.js": "/arcade/static/js/main.fbeb37d1.js",
+    "main.css": "/arcade/static/css/main.572e1982.css",
+    "main.js": "/arcade/static/js/main.5336af8a.js",
     "static/media/monocraft.ttf": "/arcade/static/media/monocraft.f79a673cfd34fa9b4fac.ttf",
     "index.html": "/arcade/index.html"
   },
   "entrypoints": [
-    "static/css/main.d147dd5b.css",
-    "static/js/main.fbeb37d1.js"
+    "static/css/main.572e1982.css",
+    "static/js/main.5336af8a.js"
   ]
 }
