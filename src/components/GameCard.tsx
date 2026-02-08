@@ -1,5 +1,4 @@
-import { ui } from "@adamjanicki/ui";
-import { UnstyledLink } from "src/components/Link";
+import { ui, UnstyledLink } from "@adamjanicki/ui";
 import { GameListing } from "src/types";
 
 type Props = {
