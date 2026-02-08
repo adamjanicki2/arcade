@@ -1,50 +1,68 @@
-import { useEffect, useState } from "react";
-import { TripleFlip as Hamburger } from "@adamjanicki/ui";
 import "src/components/nav.css";
-import Link, { UnstyledLink } from "src/components/Link";
-import { useLocation } from "react-router-dom";
+
+import { Box, Hamburger, Link, ui, UnstyledLink } from "@adamjanicki/ui";
+import { useState } from "react";
 import Logo from "src/components/Logo";
 
 type NavlinkProps = {
   to: string;
-  children: string;
+  children: React.ReactNode;
+  onClick: () => void;
 };
 
-const Nav = () => {
-  const { pathname } = useLocation();
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/games/", label: "Games" },
+  { to: "/about/", label: "About" },
+] as const;
+
+function Navlink(props: NavlinkProps) {
+  return (
+    <ui.li className="navlink-li">
+      <Link className="navlink" {...props} />
+    </ui.li>
+  );
+}
+
+export default function Nav() {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
-  useEffect(() => {
-    closeMenu();
-  }, [pathname]);
-
-  const Navlink = (props: NavlinkProps) => (
-    <li className="navlink-li">
-      <Link className="navlink" onClick={closeMenu} {...props} />
-    </li>
-  );
-
   return (
-    <nav className="flex items-center justify-between w-100 nav pv2 ph4 bb bw1">
-      <div className="flex items-center justify-between bar-container">
-        <UnstyledLink to="/">
-          <Logo className="nav-logo" />
+    <ui.nav
+      vfx={{
+        axis: "x",
+        align: "center",
+        justify: "between",
+        width: "full",
+        paddingY: "s",
+        paddingX: "l",
+        borderBottom: true,
+      }}
+      className="nav"
+    >
+      <Box
+        vfx={{ axis: "x", align: "center", justify: "between" }}
+        className="bar-container"
+      >
+        <UnstyledLink to="/" onClick={closeMenu}>
+          <Logo height={36} />
         </UnstyledLink>
-        <div className="mobile">
+        <Box className="mobile">
           <Hamburger open={open} onClick={() => setOpen(!open)} />
-        </div>
-      </div>
-      <ul
-        className="flex items-center desktop link-container ma0"
+        </Box>
+      </Box>
+      <ui.ul
+        vfx={{ axis: "x", align: "center", margin: "none" }}
+        className="desktop link-container"
         style={{ display: open ? "flex" : undefined }}
       >
-        <Navlink to="/">Home</Navlink>
-        <Navlink to="/games/">Games</Navlink>
-        <Navlink to="/about/">About</Navlink>
-      </ul>
-    </nav>
+        {navItems.map((item) => (
+          <Navlink key={item.to} to={item.to} onClick={closeMenu}>
+            {item.label}
+          </Navlink>
+        ))}
+      </ui.ul>
+    </ui.nav>
   );
-};
-
-export default Nav;
+}

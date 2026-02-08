@@ -1,20 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "@adamjanicki/ui";
 import Footer from "src/components/Footer";
 import Nav from "src/components/Nav";
+import games from "src/games";
 import { useSetTheme } from "src/hooks";
 import About from "src/pages/About";
 import Games from "src/pages/Games";
 import Home from "src/pages/Home";
 import NotFound from "src/pages/NotFound";
-import games from "src/games";
 
-const App = () => {
+export default function App() {
   useSetTheme();
 
   return (
-    <BrowserRouter basename="/arcade">
+    <Router basename="/arcade">
       <Nav />
-      <Routes>
+      <Routes fallback={<NotFound />}>
         <Route path="/" element={<Home />} />
         <Route path="/about/" element={<About />} />
         <Route path="/games/" element={<Games />} />
@@ -25,12 +25,8 @@ const App = () => {
             element={<game.Component />}
           />
         ))}
-        {/* Make sure this is the last route */}
-        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
-};
-
-export default App;
+}

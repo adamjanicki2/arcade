@@ -1,5 +1,5 @@
-import { makeUseSettingsHook } from "src/games/common/settings";
 import type { Config } from "src/games/common/GamePage";
+import { makeUseSettingsHook } from "src/games/common/settings";
 
 export type Settings = {
   checkWalls: boolean;

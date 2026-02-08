@@ -1,6 +1,6 @@
-import { GameListing } from "src/types";
 import Snake from "src/games/snake";
 import Sort from "src/games/sort";
+import { GameListing } from "src/types";
 
 const games: readonly GameListing[] = [
   {

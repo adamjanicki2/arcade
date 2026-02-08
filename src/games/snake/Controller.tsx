@@ -1,11 +1,11 @@
-import { Badge } from "@adamjanicki/ui";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { Badge, Box } from "@adamjanicki/ui";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Canvas from "src/components/Canvas";
+import StatusBadge, { type Status } from "src/components/StatusBadge";
 import Snake from "src/games/snake/snake";
 import useSettings from "src/games/snake/useSettings";
 import { useTheme } from "src/hooks";
 import { bound, fpsToMS } from "src/util";
-import StatusBadge, { type Status } from "src/components/StatusBadge";
 
 const DIR_MAP = new Map([
   ["ArrowLeft", { x: -1, y: 0 }],
@@ -22,7 +22,9 @@ const opposite = (dir1: string, dir2: string) =>
 
 export default function Controller() {
   const { settings } = useSettings();
-  let { checkWalls, fps, gridSize } = settings;
+  const { checkWalls, fps: rawFps, gridSize: rawGridSize } = settings;
+  let fps = rawFps;
+  let gridSize = rawGridSize;
   fps = bound(fps, 1, 60);
   gridSize = bound(gridSize, 5, 100);
 
@@ -94,11 +96,10 @@ export default function Controller() {
         resetGameState();
       }
     },
-    [moveLocked, gameOver, resetGameState]
+    [moveLocked, gameOver, resetGameState],
   );
 
-  const step = useCallback(
-    (timestamp: number) => {
+  const step = useCallback(function stepFn(timestamp: number) {
       if (!isRunning) {
         return;
       }
@@ -122,9 +123,9 @@ export default function Controller() {
       }
 
       // Continue the game loop
-      animationFrameId.current = requestAnimationFrame(step);
+      animationFrameId.current = requestAnimationFrame(stepFn);
     },
-    [direction, isRunning, paintCanvas, checkWalls, interval]
+    [direction, isRunning, paintCanvas, checkWalls, interval],
   );
 
   useEffect(() => {
@@ -150,39 +151,30 @@ export default function Controller() {
     };
   }, [isRunning, direction, handleKeyDown, step, paintCanvas]);
 
-  let status: Status;
-  if (gameOver) {
-    status = "gameover";
-  } else if (isRunning && direction) {
-    status = "ongoing";
-  } else if (!direction) {
-    status = "awaiting";
-  } else {
-    status = "paused";
-  }
+  const status: Status = gameOver
+    ? "gameover"
+    : isRunning && direction
+      ? "ongoing"
+      : !direction
+        ? "awaiting"
+        : "paused";
 
   return (
-    <>
-      <div
+    <Box vfx={{ axis: "y", gap: "s", width: "min" }}>
+      <Box vfx={{ axis: "x", justify: "between" }}>
+        <StatusBadge status={status} />
+        <Badge type="static">SCORE: {score}</Badge>
+      </Box>
+      <Canvas
+        canvasRef={canvasRef}
         style={{
-          width: "min-content",
+          width: "min(55vw, 55vh)",
+          height: "min(55vw, 55vh)",
+          borderColor: "currentColor",
         }}
-      >
-        <div className="flex justify-between">
-          <StatusBadge status={status} />
-          <Badge type="static">SCORE: {score}</Badge>
-        </div>
-        <Canvas
-          canvasRef={canvasRef}
-          className="ba bw1 mv2"
-          style={{
-            width: "min(55vw, 55vh)",
-            height: "min(55vw, 55vh)",
-            borderStyle: checkWalls ? "solid" : "dashed",
-          }}
-          multiplicity={snake.current.gridSize}
-        />
-      </div>
-    </>
+        vfx={{ border: true, borderStyle: checkWalls ? "solid" : "dashed" }}
+        multiplicity={snake.current.gridSize}
+      />
+    </Box>
   );
 }

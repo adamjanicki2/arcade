@@ -1,14 +1,22 @@
-import { classNames } from "@adamjanicki/ui/functions";
+import { Box, ui } from "@adamjanicki/ui";
+import type { ComponentProps, CSSProperties, RefObject } from "react";
 import { useEffect } from "react";
 
 type Props = {
   multiplicity?: number;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
+  canvasRef: RefObject<HTMLCanvasElement | null>;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
+  vfx?: ComponentProps<typeof Box>["vfx"];
 };
 
-const Canvas = ({ canvasRef, className, style, multiplicity = 1 }: Props) => {
+export default function Canvas({
+  canvasRef,
+  className,
+  style,
+  vfx,
+  multiplicity = 1,
+}: Props) {
   useEffect(() => {
     const resizeCanvas = () => {
       if (canvasRef.current) {
@@ -29,19 +37,12 @@ const Canvas = ({ canvasRef, className, style, multiplicity = 1 }: Props) => {
   }, [canvasRef, multiplicity]);
 
   return (
-    <div
-      className={classNames("flex items-center justify-center", className)}
+    <Box
+      className={className}
       style={style}
+      vfx={{ axis: "x", align: "center", justify: "center", ...vfx }}
     >
-      <canvas
-        ref={canvasRef}
-        style={{
-          border: "none",
-          outline: "none",
-        }}
-      />
-    </div>
+      <ui.canvas ref={canvasRef} style={{ border: "none", outline: "none" }} />
+    </Box>
   );
-};
-
-export default Canvas;
+}

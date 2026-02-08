@@ -1,4 +1,4 @@
-import React from "react";
+import { Box, ui } from "@adamjanicki/ui";
 import Link from "src/components/Link";
 import { useDocumentTitle } from "src/hooks";
 import type { Children } from "src/types";
@@ -12,42 +12,50 @@ type Props = {
   children: Children;
   title: string;
   documentTitle?: string;
-  titleClass?: string;
   breadcrumbs: Breadcrumb[];
 };
 
-const PageWrapper = ({
+export default function PageWrapper({
   children,
   title,
   documentTitle,
-  titleClass = "",
   breadcrumbs,
-}: Props) => {
+}: Props) {
   useDocumentTitle(`${documentTitle ?? title}`);
 
   return (
-    <div
-      className="flex flex-column items-center w-100 pb3"
+    <Box
+      vfx={{
+        axis: "y",
+        align: "center",
+        width: "full",
+        paddingBottom: "xl",
+        gap: "m",
+      }}
       style={{ minHeight: "70vh" }}
     >
-      <div
-        className="flex items-center w-100 ph4 mt3"
+      <Box
+        vfx={{
+          axis: "x",
+          align: "center",
+          width: "full",
+          paddingX: "l",
+          gap: "s",
+        }}
         style={{ whiteSpace: "pre-wrap" }}
       >
         {breadcrumbs.map(({ name, to }) => (
-          <React.Fragment key={name}>
+          <ui.span key={name} vfx={{ axis: "x", align: "center", gap: "s" }}>
             <Link to={to}>{name}</Link>
-            <span className="mh2">{">"}</span>
-          </React.Fragment>
+            <ui.span>{">"}</ui.span>
+          </ui.span>
         ))}
-        {title}
-      </div>
-      <h1 className={`page-title-text tc ${titleClass}`}>
+        <ui.span>{title}</ui.span>
+      </Box>
+      <ui.h1 className="page-title-text" vfx={{ textAlign: "center", margin: "none" }}>
         {title.toUpperCase()}
-      </h1>
+      </ui.h1>
       {children}
-    </div>
+    </Box>
   );
-};
-
-export default PageWrapper;
+}

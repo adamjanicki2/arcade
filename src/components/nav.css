@@ -16,20 +16,17 @@
   margin-left: 2rem;
 }
 
-.nav-logo {
-  width: 48px;
+.navlink {
+  color: black;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 820px) {
   .bar-container {
     width: 100%;
   }
   .link-container,
   .nav {
     flex-direction: column;
-  }
-  .nav-open {
-    height: 100vh;
   }
   .link-container {
     width: 100%;
@@ -43,8 +40,5 @@
     width: 100%;
     display: flex;
     margin: 0.5rem 0;
-  }
-  .nav-logo {
-    width: 32px;
   }
 }

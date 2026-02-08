@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import { Button, ui } from "@adamjanicki/ui";
+import { useState } from "react";
 import Modal from "src/components/Modal";
-import SmallButton from "src/components/SmallButton";
 
 type Props = {
-  className?: string;
   children: React.ReactNode;
 };
 
-export default function HelpButton({ children, className }: Props) {
+export default function HelpButton({ children }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <SmallButton className={className} onClick={() => setOpen(!open)}>
+      <Button size="small" onClick={() => setOpen(!open)}>
         Help
-      </SmallButton>
+      </Button>
       {open && (
         <Modal
           title="Help"
@@ -22,7 +21,7 @@ export default function HelpButton({ children, className }: Props) {
           confirmText="OK"
           hideCancel
         >
-          <p>{children}</p>
+          <ui.p vfx={{ margin: "none" }}>{children}</ui.p>
         </Modal>
       )}
     </>

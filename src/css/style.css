@@ -7,19 +7,20 @@
 [data-theme="dark"] {
   --background: black;
   --main: #11ff55;
-  --ajui-link-color: #11ff55;
-  --ajui-select-border: #11ff55;
-  --ajui-focus-ring-color: #11ff55;
-  --ajui-button-primary-background: #11ff55;
+  --aui-link-color: #11ff55;
+  --aui-default-border: #11ff55;
+  --aui-focus-ring-color: #11ff55;
+  --aui-button-primary-background: #11ff55;
 }
 
 [data-theme="light"] {
   --background: white;
   --main: black;
-  --ajui-link-color: black;
-  --ajui-select-border: black;
-  --ajui-focus-ring-color: black;
-  --ajui-button-primary-background: black;
+  --aui-link-color: black;
+  --aui-default-border: black;
+  --aui-focus-ring-color: black;
+  --aui-button-primary-background: black;
+  --aui-static-border: black;
 }
 
 input {
@@ -32,8 +33,13 @@ input::selection {
 
 body {
   margin: 0;
-  font-family: "monocraft", "Press Start 2P", -apple-system, BlinkMacSystemFont,
-    "Helvetica Neue", sans-serif;
+  font-family:
+    "monocraft",
+    "Press Start 2P",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
@@ -51,24 +57,6 @@ body {
 .page-title-text {
   font-size: calc(2rem + 1vw);
   font-weight: 700;
-}
-
-.bordering {
-  border: 2px solid red;
-}
-
-.w-70-90 {
-  width: 70%;
-}
-
-.bg {
-  background-color: var(--background);
-}
-
-@media only screen and (max-width: 768px) {
-  .w-70-90 {
-    width: 90%;
-  }
 }
 
 p {

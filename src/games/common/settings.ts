@@ -1,5 +1,4 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { createStore, persist } from "@adamjanicki/store";
 
 export type GeneralSettings = {
   [key: string]: string | number | boolean;
@@ -14,18 +13,17 @@ export type UseSettingsHook<T> = () => Store<T>;
 
 export function makeUseSettingsHook<T extends GeneralSettings>(
   gameId: string,
-  defaultSettings: T
+  defaultSettings: T,
 ): UseSettingsHook<T> {
-  return create(
-    persist<Store<T>>(
-      (set) => ({
-        settings: { ...defaultSettings },
-        setSettings: (settings: T) => set({ settings }),
-      }),
-      {
-        name: `arcade-settings-${gameId}`,
-        storage: createJSONStorage(() => localStorage),
-      }
-    )
-  );
+  const useSettingsBase = createStore<T>({
+    init: { ...defaultSettings },
+    plugins: [
+      persist({ key: `aj-arcade-settings-${gameId}`, storage: "local" }),
+    ],
+  });
+
+  return function useSettings() {
+    const [settings, setSettings] = useSettingsBase();
+    return { settings, setSettings };
+  };
 }

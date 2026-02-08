@@ -1,13 +1,16 @@
+import { Box, ui } from "@adamjanicki/ui";
+import type { ReactNode } from "react";
+
 type Props = {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export default function Field({ title, children }: Props) {
   return (
-    <div className="flex flex-column mv2">
-      <label className="mb1">{title}</label>
+    <Box vfx={{ axis: "y", gap: "xs", marginY: "s" }}>
+      <ui.label>{title}</ui.label>
       {children}
-    </div>
+    </Box>
   );
 }

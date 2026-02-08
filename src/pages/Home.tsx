@@ -1,23 +1,31 @@
+import { Box, ui } from "@adamjanicki/ui";
 import Link from "src/components/Link";
 import { useDocumentTitle } from "src/hooks";
-import "src/pages/home.css";
-const Home = () => {
+
+export default function Home() {
   useDocumentTitle("Arcade");
+
   return (
-    <div
-      className="flex flex-column items-center justify-center"
+    <Box
+      vfx={{ axis: "y", align: "center", justify: "center", gap: "l" }}
       style={{ minHeight: "60vh" }}
     >
-      <h1 style={{ width: "fit-content" }} className="home-title tc">
+      <ui.h1
+        vfx={{
+          textAlign: "center",
+          fontSize: "xxl",
+          fontWeight: 7,
+          margin: "none",
+        }}
+      >
         ARCADE
-      </h1>
-      <Link to="/games/" className="home-link">
+      </ui.h1>
+      <Link to="/games/" vfx={{ fontSize: "m", fontWeight: 6 }}>
         START PLAYING
       </Link>
-      <Link to="/about/" className="home-link mt4">
+      <Link to="/about/" vfx={{ fontSize: "m", fontWeight: 6 }}>
         LEARN MORE
       </Link>
-    </div>
+    </Box>
   );
-};
-export default Home;
+}

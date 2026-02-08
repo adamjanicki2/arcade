@@ -1,5 +1,4 @@
-import { Layer } from "@adamjanicki/ui";
-import SmallButton from "src/components/SmallButton";
+import { Box, Button, Layer, ui } from "@adamjanicki/ui";
 
 type Props = {
   title: string;
@@ -24,18 +23,39 @@ export default function Modal({
   };
   return (
     <Layer onClose={onClose}>
-      <div className="pa3 ba bw1 bg" style={{ maxWidth: "80%" }}>
-        <h1 style={{ textDecoration: "underline" }}>{title}</h1>
+      <Box
+        vfx={{
+          axis: "y",
+          gap: "m",
+          padding: "m",
+          border: true,
+          backgroundColor: "default",
+        }}
+        style={{ maxWidth: "80%" }}
+      >
+        <ui.h1 vfx={{ margin: "none" }} style={{ textDecoration: "underline" }}>
+          {title}
+        </ui.h1>
         {children}
-        <div className="flex items-center justify-end w-100 mt2">
+        <Box
+          vfx={{
+            axis: "x",
+            align: "center",
+            justify: "end",
+            width: "full",
+            gap: "s",
+          }}
+        >
           {!hideCancel && (
-            <SmallButton className="mr2" onClick={onClose}>
+            <Button size="small" onClick={onClose}>
               Cancel
-            </SmallButton>
+            </Button>
           )}
-          <SmallButton onClick={handleOk}>{confirmText}</SmallButton>
-        </div>
-      </div>
+          <Button size="small" onClick={handleOk}>
+            {confirmText}
+          </Button>
+        </Box>
+      </Box>
     </Layer>
   );
 }
