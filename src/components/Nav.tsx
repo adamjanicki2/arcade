@@ -1,32 +1,32 @@
 import "src/components/nav.css";
 
-import { Box, Hamburger, ui, UnstyledLink } from "@adamjanicki/ui";
+import { Box, Hamburger, Link, ui, UnstyledLink } from "@adamjanicki/ui";
 import { useState } from "react";
-import Link from "src/components/Link";
 import Logo from "src/components/Logo";
 
 type NavlinkProps = {
   to: string;
-  children: string;
+  children: React.ReactNode;
   onClick: () => void;
 };
 
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/games/", label: "Games" },
+  { to: "/about/", label: "About" },
+] as const;
+
 function Navlink(props: NavlinkProps) {
   return (
-    <ui.li vfx={{ width: "full" }}>
-      <Link vfx={{ width: "full", color: "inherit" }} {...props} />
+    <ui.li className="navlink-li">
+      <Link className="navlink" {...props} />
     </ui.li>
   );
 }
 
-function Nav() {
+export default function Nav() {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
-  const navItems = [
-    { to: "/", label: "Home" },
-    { to: "/games/", label: "Games" },
-    { to: "/about/", label: "About" },
-  ];
 
   return (
     <ui.nav
@@ -38,31 +38,22 @@ function Nav() {
         paddingY: "s",
         paddingX: "l",
         borderBottom: true,
-        pos: "sticky",
-        z: "nav",
       }}
-      style={{ top: 0, backgroundColor: "var(--background)" }}
       className="nav"
     >
       <Box
-        vfx={{ axis: "x", align: "center", justify: "between", width: "full" }}
+        vfx={{ axis: "x", align: "center", justify: "between" }}
         className="bar-container"
       >
-        <UnstyledLink to="/">
-          <Logo className="nav-logo" />
+        <UnstyledLink to="/" onClick={closeMenu}>
+          <Logo height={36} />
         </UnstyledLink>
         <Box className="mobile">
           <Hamburger open={open} onClick={() => setOpen(!open)} />
         </Box>
       </Box>
       <ui.ul
-        vfx={{
-          axis: "x",
-          align: "center",
-          gap: "l",
-          margin: "none",
-          width: "full",
-        }}
+        vfx={{ axis: "x", align: "center", margin: "none" }}
         className="desktop link-container"
         style={{ display: open ? "flex" : undefined }}
       >
@@ -75,5 +66,3 @@ function Nav() {
     </ui.nav>
   );
 }
-
-export default Nav;

@@ -1,10 +1,23 @@
+.nav {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--background);
+}
+
 .link-container {
   list-style-type: none;
   padding: 0;
+  margin: 15px 0;
 }
 
-.nav-logo {
-  width: 48px;
+.navlink-li {
+  margin-left: 2rem;
+}
+
+.navlink {
+  color: black;
 }
 
 @media only screen and (max-width: 820px) {
@@ -19,7 +32,13 @@
     width: 100%;
     align-items: start;
   }
-  .nav-logo {
-    width: 32px;
+  .navlink-li {
+    margin: 0;
+    width: 100%;
+  }
+  .navlink {
+    width: 100%;
+    display: flex;
+    margin: 0.5rem 0;
   }
 }
