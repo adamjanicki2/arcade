@@ -1,6 +1,7 @@
+import "src/components/nav.css";
+
 import { Box, Hamburger, ui, UnstyledLink } from "@adamjanicki/ui";
 import { useState } from "react";
-import "src/components/nav.css";
 import Link from "src/components/Link";
 import Logo from "src/components/Logo";
 

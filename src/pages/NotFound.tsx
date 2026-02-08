@@ -1,5 +1,5 @@
-import Link from "src/components/Link";
 import { ui } from "@adamjanicki/ui";
+import Link from "src/components/Link";
 import PageWrapper from "src/components/PageWrapper";
 
 export default function NotFound() {

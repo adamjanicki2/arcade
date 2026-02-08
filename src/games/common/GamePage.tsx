@@ -1,6 +1,6 @@
 import { Box, Button, ui } from "@adamjanicki/ui";
-import { useState } from "react";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import PageWrapper from "src/components/PageWrapper";
 import HelpButton from "src/games/common/HelpButton";
 import { GeneralSettings, UseSettingsHook } from "src/games/common/settings";

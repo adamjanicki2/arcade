@@ -1,5 +1,5 @@
 import { Box, ui } from "@adamjanicki/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StatusBadge, { type Status } from "src/components/StatusBadge";
 import useSettings from "src/games/sort/useSettings";
 import { bound } from "src/util";
@@ -13,17 +13,29 @@ export default function Controller() {
 
   const maxDigits = inclUpper.toString().length;
 
+  return (
+    <SortGame
+      key={`${maxSlot}-${inclUpper}`}
+      maxSlot={maxSlot}
+      inclUpper={inclUpper}
+      maxDigits={maxDigits}
+    />
+  );
+}
+
+type SortGameProps = {
+  maxSlot: number;
+  inclUpper: number;
+  maxDigits: number;
+};
+
+function SortGame({ maxSlot, inclUpper, maxDigits }: SortGameProps) {
   const [slots, setSlots] = useState<Array<number | undefined>>(
     new Array<number | undefined>(maxSlot).fill(undefined),
   );
-
-  const [randomNumber, setRandomNumber] = useState(rng(0, inclUpper, []));
-
-  useEffect(() => {
-    setSlots(new Array<number | undefined>(maxSlot).fill(undefined));
-    setRandomNumber(rng(0, inclUpper, []));
-    // eslint-disable-next-line
-  }, [inclUpper, maxSlot]);
+  const [randomNumber, setRandomNumber] = useState(() =>
+    rng(0, inclUpper, []),
+  );
 
   const wonGame = slots.length === slots.filter(Boolean).length;
   const lostGame = hasLostGame(slots, randomNumber);

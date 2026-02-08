@@ -1,12 +1,12 @@
 import { Route, Router, Routes } from "@adamjanicki/ui";
 import Footer from "src/components/Footer";
 import Nav from "src/components/Nav";
+import games from "src/games";
 import { useSetTheme } from "src/hooks";
 import About from "src/pages/About";
 import Games from "src/pages/Games";
 import Home from "src/pages/Home";
 import NotFound from "src/pages/NotFound";
-import games from "src/games";
 
 export default function App() {
   useSetTheme();

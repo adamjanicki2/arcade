@@ -1,7 +1,8 @@
+import "src/components/link.css";
+
 import { Link as UILink } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
 import type { ComponentProps } from "react";
-import "src/components/link.css";
 
 type Props = ComponentProps<typeof UILink>;
 

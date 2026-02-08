@@ -1,7 +1,8 @@
+import "src/components/logo.css";
+
 import { ui } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
 import type { CSSProperties } from "react";
-import "src/components/logo.css";
 
 type Props = {
   width?: number | string;

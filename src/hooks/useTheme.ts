@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
 import useMediaQuery from "@adamjanicki/ui/hooks/useMediaQuery";
 import { useEffect } from "react";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export type Theme = "light" | "dark";
 export type ThemePreference = Theme | "system";
