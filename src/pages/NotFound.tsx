@@ -1,14 +1,15 @@
-import PageWrapper from "src/components/PageWrapper";
 import Link from "src/components/Link";
+import { ui } from "@adamjanicki/ui";
+import PageWrapper from "src/components/PageWrapper";
 
-const NotFound = () => (
-  <PageWrapper title="404" breadcrumbs={[{ name: "Home", to: "/" }]}>
-    <p className="tc">
-      Oops! The requested page does not exist.
-      <br />
-      Try going <Link to="/">home</Link>.
-    </p>
-  </PageWrapper>
-);
-
-export default NotFound;
+export default function NotFound() {
+  return (
+    <PageWrapper title="404" breadcrumbs={[{ name: "Home", to: "/" }]}>
+      <ui.p vfx={{ textAlign: "center", margin: "none" }}>
+        Oops! The requested page does not exist.
+        <ui.br />
+        Try going <Link to="/">home</Link>.
+      </ui.p>
+    </PageWrapper>
+  );
+}

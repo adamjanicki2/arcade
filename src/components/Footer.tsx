@@ -1,29 +1,37 @@
+import { Select, ui } from "@adamjanicki/ui";
 import Link from "src/components/Link";
-import { Select } from "@adamjanicki/ui";
 import { useThemePreference } from "src/hooks";
 
 const options = ["system", "light", "dark"];
 
-const Footer = () => {
+export default function Footer() {
   const { setPreference, preference } = useThemePreference();
   return (
-    <footer className="pt4 ph2 flex flex-column items-center justify-center w-100 bt bw1">
+    <ui.footer
+      vfx={{
+        axis: "y",
+        align: "center",
+        justify: "center",
+        width: "full",
+        paddingTop: "l",
+        paddingX: "s",
+        borderTop: true,
+        gap: "m",
+      }}
+    >
       <Select
         options={options}
         value={preference}
-        onChange={(e) => setPreference(e.target.value as any)}
+        onSelect={(value) => setPreference(value as any)}
         aria-label="Theme selector"
-        className="mb3"
         getOptionLabel={(option) => option.toUpperCase()}
       />
-      <p className="tc">
+      <ui.p vfx={{ textAlign: "center", margin: "none" }}>
         EST. 2024 BUILT FROM SCRATCH BY{" "}
-        <Link to="https://adamjanicki.xyz" target="_blank" rel="noreferrer">
+        <Link to="https://adamjanicki.xyz" newTab>
           ADAM
         </Link>
-      </p>
-    </footer>
+      </ui.p>
+    </ui.footer>
   );
-};
-
-export default Footer;
+}

@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 export type Children = React.ReactNode | React.ReactNode[];
 export type GameListing = {
   id: string;

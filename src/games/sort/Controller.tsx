@@ -1,9 +1,8 @@
-import { classNames } from "@adamjanicki/ui/functions";
-import { useEffect, useState } from "react";
+import { Box, ui } from "@adamjanicki/ui";
+import React, { useEffect, useState } from "react";
+import StatusBadge, { type Status } from "src/components/StatusBadge";
 import useSettings from "src/games/sort/useSettings";
 import { bound } from "src/util";
-import StatusBadge, { type Status } from "src/components/StatusBadge";
-import React from "react";
 
 export default function Controller() {
   const { settings } = useSettings();
@@ -15,7 +14,7 @@ export default function Controller() {
   const maxDigits = inclUpper.toString().length;
 
   const [slots, setSlots] = useState<Array<number | undefined>>(
-    new Array<number | undefined>(maxSlot).fill(undefined)
+    new Array<number | undefined>(maxSlot).fill(undefined),
   );
 
   const [randomNumber, setRandomNumber] = useState(rng(0, inclUpper, []));
@@ -40,19 +39,19 @@ export default function Controller() {
   }
 
   return (
-    <div>
-      <div className="flex justify-center mb2">
+    <Box vfx={{ axis: "y", gap: "s" }}>
+      <Box vfx={{ axis: "x", justify: "center" }}>
         <StatusBadge status={status} />
-      </div>
-      <div className="flex flex-column justify-center items-center w-100">
-        <div className="flex flex-wrap justify-center">
+      </Box>
+      <Box vfx={{ axis: "y", align: "center", width: "full", gap: "s" }}>
+        <Box vfx={{ axis: "x", wrap: true, justify: "center", gap: "xs" }}>
           {slots.map((num, i) => (
             <Slot
               key={i}
               num={num}
               onDrop={() => {
                 const newSlots = slots.map((e, idx) =>
-                  idx === i ? randomNumber : e
+                  idx === i ? randomNumber : e,
                 );
                 setSlots(newSlots);
                 setRandomNumber(rng(0, inclUpper, newSlots));
@@ -60,24 +59,25 @@ export default function Controller() {
               maxDigits={maxDigits}
             />
           ))}
-        </div>
-        <div
-          className="ba b--dashed bw2 pa3 mt2"
-          style={{ height: "fit-content" }}
+        </Box>
+        <Box
+          vfx={{ border: true, padding: "m" }}
+          style={{ borderStyle: "dashed", height: "fit-content" }}
         >
-          <span
+          <ui.span
             draggable={["awaiting", "ongoing"].includes(status)}
-            className="page-title-text fw8"
+            className="page-title-text"
+            vfx={{ fontWeight: 8 }}
             style={{ whiteSpace: "pre-wrap" }}
           >
             {wonGame
               ? " ".repeat(maxDigits)
               : " ".repeat(maxDigits - randomNumber.toString().length) +
                 randomNumber}
-          </span>
-        </div>
-      </div>
-    </div>
+          </ui.span>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
@@ -87,28 +87,29 @@ type SlotProps = {
   maxDigits: number;
 };
 
-const Slot = ({ num, onDrop, maxDigits }: SlotProps) => (
-  <div
-    className={classNames(
-      "flex ba bw1 pa2 ma1 page-title-text",
-      num ? "" : "b--dashed"
-    )}
-    onDrop={num ? undefined : onDrop}
-    onDragOver={num ? undefined : (e) => e.preventDefault()}
-    style={{
-      minHeight: 30,
-      minWidth: 30,
-      whiteSpace: "pre-wrap",
-      width: "fit-content",
-    }}
-  >
-    {num !== undefined
-      ? " ".repeat(maxDigits - num.toString().length) + num
-      : new Array(maxDigits)
-          .fill(undefined)
-          .map((_, i) => <React.Fragment key={i}>&nbsp;</React.Fragment>)}
-  </div>
-);
+function Slot({ num, onDrop, maxDigits }: SlotProps) {
+  return (
+    <Box
+      className="page-title-text"
+      vfx={{ axis: "x", border: true, padding: "s", fontWeight: 7 }}
+      onDrop={num ? undefined : onDrop}
+      onDragOver={num ? undefined : (e) => e.preventDefault()}
+      style={{
+        minHeight: 30,
+        minWidth: 30,
+        whiteSpace: "pre-wrap",
+        width: "fit-content",
+        borderStyle: num ? "solid" : "dashed",
+      }}
+    >
+      {num !== undefined
+        ? " ".repeat(maxDigits - num.toString().length) + num
+        : new Array(maxDigits)
+            .fill(undefined)
+            .map((_, i) => <React.Fragment key={i}>&nbsp;</React.Fragment>)}
+    </Box>
+  );
+}
 
 function rng(min: number, max: number, used: Array<number | undefined>) {
   let randomNumber = min + Math.floor(Math.random() * (max - min));

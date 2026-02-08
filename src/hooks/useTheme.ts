@@ -20,8 +20,8 @@ export const useThemePreference = create(
     {
       name: "arcade-theme-preference-store",
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );
 
 export const useTheme = (): Theme => {
@@ -40,6 +40,6 @@ export const useSetTheme = () => {
     function () {
       document.body.setAttribute("data-theme", theme);
     },
-    [theme]
+    [theme],
   );
 };

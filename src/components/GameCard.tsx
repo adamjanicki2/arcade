@@ -1,4 +1,4 @@
-import { classNames } from "@adamjanicki/ui/functions";
+import { ui } from "@adamjanicki/ui";
 import { UnstyledLink } from "src/components/Link";
 import { GameListing } from "src/types";
 
@@ -12,11 +12,12 @@ export default function GameCard({ game, className }: Props) {
     <UnstyledLink
       to={`/games/${game.id}`}
       style={{ width: "min-content", minWidth: "min(350px, 95vw)" }}
-      className={classNames("flex flex-column pa1 ma2 ba bw1", className)}
+      className={className}
+      vfx={{ axis: "y", padding: "xs", border: true, gap: "xs" }}
     >
-      <img src={`/images/${game.id}.png`} alt="" />
-      <h2 className="home-link">{game.title}</h2>
-      <p>{game.desc}</p>
+      <ui.img src={`/images/${game.id}.png`} alt="" />
+      <ui.h2 vfx={{ margin: "none", fontSize: "m" }}>{game.title}</ui.h2>
+      <ui.p vfx={{ margin: "none" }}>{game.desc}</ui.p>
     </UnstyledLink>
   );
 }

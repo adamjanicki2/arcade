@@ -1,23 +1,20 @@
-import {
-  Link as UILink,
-  UnstyledLink as UIUnstyledLink,
-} from "@adamjanicki/ui";
+import { Link as UILink, UnstyledLink as UIUnstyledLink } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
-import { Link as RouterLink } from "react-router-dom";
+import type { ComponentProps } from "react";
 import "src/components/link.css";
 
-type Props = React.ComponentProps<typeof UILink>;
+type Props = ComponentProps<typeof UILink>;
 
-const Link = ({ className, ...props }: Props) => (
-  <UILink
-    LinkElement={RouterLink}
-    {...props}
-    className={classNames("arcade-link", className)}
-  />
-);
+function Link({ className, ...props }: Props) {
+  return (
+    <UILink {...props} className={classNames("arcade-link", className)} />
+  );
+}
 
-export const UnstyledLink = (
-  props: React.ComponentProps<typeof UIUnstyledLink>
-) => <UIUnstyledLink LinkElement={RouterLink} {...props} />;
+export function UnstyledLink(
+  props: ComponentProps<typeof UIUnstyledLink>,
+) {
+  return <UIUnstyledLink {...props} />;
+}
 
 export default Link;

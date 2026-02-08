@@ -1,50 +1,74 @@
-import { useEffect, useState } from "react";
-import { TripleFlip as Hamburger } from "@adamjanicki/ui";
+import { Box, Hamburger, ui } from "@adamjanicki/ui";
+import { useState } from "react";
 import "src/components/nav.css";
 import Link, { UnstyledLink } from "src/components/Link";
-import { useLocation } from "react-router-dom";
 import Logo from "src/components/Logo";
 
 type NavlinkProps = {
   to: string;
   children: string;
+  onClick: () => void;
 };
 
-const Nav = () => {
-  const { pathname } = useLocation();
+function Navlink(props: NavlinkProps) {
+  return (
+    <ui.li vfx={{ width: "full" }}>
+      <Link vfx={{ width: "full", color: "inherit" }} {...props} />
+    </ui.li>
+  );
+}
+
+function Nav() {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
-  useEffect(() => {
-    closeMenu();
-  }, [pathname]);
-
-  const Navlink = (props: NavlinkProps) => (
-    <li className="navlink-li">
-      <Link className="navlink" onClick={closeMenu} {...props} />
-    </li>
-  );
-
   return (
-    <nav className="flex items-center justify-between w-100 nav pv2 ph4 bb bw1">
-      <div className="flex items-center justify-between bar-container">
+    <ui.nav
+      vfx={{
+        axis: "x",
+        align: "center",
+        justify: "between",
+        width: "full",
+        paddingY: "s",
+        paddingX: "l",
+        borderBottom: true,
+      }}
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
+        backgroundColor: "var(--background)",
+      }}
+      className="nav"
+    >
+      <Box
+        vfx={{ axis: "x", align: "center", justify: "between", width: "full" }}
+        className="bar-container"
+      >
         <UnstyledLink to="/">
           <Logo className="nav-logo" />
         </UnstyledLink>
-        <div className="mobile">
+        <Box className="mobile">
           <Hamburger open={open} onClick={() => setOpen(!open)} />
-        </div>
-      </div>
-      <ul
-        className="flex items-center desktop link-container ma0"
+        </Box>
+      </Box>
+      <ui.ul
+        vfx={{ axis: "x", align: "center", gap: "l", margin: "none" }}
+        className="desktop link-container"
         style={{ display: open ? "flex" : undefined }}
       >
-        <Navlink to="/">Home</Navlink>
-        <Navlink to="/games/">Games</Navlink>
-        <Navlink to="/about/">About</Navlink>
-      </ul>
-    </nav>
+        <Navlink to="/" onClick={closeMenu}>
+          Home
+        </Navlink>
+        <Navlink to="/games/" onClick={closeMenu}>
+          Games
+        </Navlink>
+        <Navlink to="/about/" onClick={closeMenu}>
+          About
+        </Navlink>
+      </ui.ul>
+    </ui.nav>
   );
-};
+}
 
 export default Nav;

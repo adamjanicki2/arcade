@@ -32,8 +32,13 @@ input::selection {
 
 body {
   margin: 0;
-  font-family: "monocraft", "Press Start 2P", -apple-system, BlinkMacSystemFont,
-    "Helvetica Neue", sans-serif;
+  font-family:
+    "monocraft",
+    "Press Start 2P",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
@@ -51,24 +56,6 @@ body {
 .page-title-text {
   font-size: calc(2rem + 1vw);
   font-weight: 700;
-}
-
-.bordering {
-  border: 2px solid red;
-}
-
-.w-70-90 {
-  width: 70%;
-}
-
-.bg {
-  background-color: var(--background);
-}
-
-@media only screen and (max-width: 768px) {
-  .w-70-90 {
-    width: 90%;
-  }
 }
 
 p {

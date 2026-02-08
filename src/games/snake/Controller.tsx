@@ -1,4 +1,4 @@
-import { Badge } from "@adamjanicki/ui";
+import { Badge, Box } from "@adamjanicki/ui";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Canvas from "src/components/Canvas";
 import Snake from "src/games/snake/snake";
@@ -94,7 +94,7 @@ export default function Controller() {
         resetGameState();
       }
     },
-    [moveLocked, gameOver, resetGameState]
+    [moveLocked, gameOver, resetGameState],
   );
 
   const step = useCallback(
@@ -124,7 +124,7 @@ export default function Controller() {
       // Continue the game loop
       animationFrameId.current = requestAnimationFrame(step);
     },
-    [direction, isRunning, paintCanvas, checkWalls, interval]
+    [direction, isRunning, paintCanvas, checkWalls, interval],
   );
 
   useEffect(() => {
@@ -162,27 +162,21 @@ export default function Controller() {
   }
 
   return (
-    <>
-      <div
+    <Box style={{ width: "min-content" }} vfx={{ axis: "y", gap: "s" }}>
+      <Box vfx={{ axis: "x", justify: "between" }}>
+        <StatusBadge status={status} />
+        <Badge type="static">SCORE: {score}</Badge>
+      </Box>
+      <Canvas
+        canvasRef={canvasRef}
         style={{
-          width: "min-content",
+          width: "min(55vw, 55vh)",
+          height: "min(55vw, 55vh)",
+          border: "1px solid currentColor",
+          borderStyle: checkWalls ? "solid" : "dashed",
         }}
-      >
-        <div className="flex justify-between">
-          <StatusBadge status={status} />
-          <Badge type="static">SCORE: {score}</Badge>
-        </div>
-        <Canvas
-          canvasRef={canvasRef}
-          className="ba bw1 mv2"
-          style={{
-            width: "min(55vw, 55vh)",
-            height: "min(55vw, 55vh)",
-            borderStyle: checkWalls ? "solid" : "dashed",
-          }}
-          multiplicity={snake.current.gridSize}
-        />
-      </div>
-    </>
+        multiplicity={snake.current.gridSize}
+      />
+    </Box>
   );
 }

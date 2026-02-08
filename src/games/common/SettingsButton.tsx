@@ -1,4 +1,5 @@
-import { Input, Select } from "@adamjanicki/ui";
+import React from "react";
+import { Box, Input, Select } from "@adamjanicki/ui";
 import { useState } from "react";
 import Field from "src/components/Field";
 import Modal from "src/components/Modal";
@@ -12,14 +13,12 @@ type Props<T> = {
   defaultSettings: T;
   useSettings: UseSettingsHook<T>;
   labels: Record<string, string>;
-  className?: string;
 };
 
 export default function SettingsButton<T extends GeneralSettings>({
   useSettings,
   labels,
   defaultSettings,
-  className,
 }: Props<T>) {
   const { settings, setSettings } = useSettings();
   const [currentSettings, setCurrentSettings] = useState<T>(settings);
@@ -27,16 +26,14 @@ export default function SettingsButton<T extends GeneralSettings>({
 
   return (
     <>
-      <SmallButton className={className} onClick={() => setOpen(!open)}>
-        Settings
-      </SmallButton>
+      <SmallButton onClick={() => setOpen(!open)}>Settings</SmallButton>
       {open && (
         <Modal
           title="Settings"
           onConfirm={() => setSettings(currentSettings)}
           onClose={() => setOpen(false)}
         >
-          <div className="flex flex-column">
+          <Box vfx={{ axis: "y", gap: "s" }}>
             {Object.entries(currentSettings).map(
               ([settingsKey, settingsValue], i) => (
                 <Field title={labels[settingsKey]} key={i}>
@@ -52,9 +49,9 @@ export default function SettingsButton<T extends GeneralSettings>({
                     }
                   />
                 </Field>
-              )
+              ),
             )}
-          </div>
+          </Box>
         </Modal>
       )}
     </>
@@ -73,7 +70,7 @@ function CustomInput<T>({
   settingsValue,
   onChange,
   defaultValue,
-}: CustomInputProps<T>): JSX.Element {
+}: CustomInputProps<T>): React.JSX.Element {
   const fieldType = typeof settingsValue;
   switch (fieldType) {
     case "number":
@@ -89,7 +86,7 @@ function CustomInput<T>({
       return (
         <Select
           value={settingsValue ? "yes" : "no"}
-          onChange={(e) => onChange((e.target.value === "yes") as T)}
+          onSelect={(value) => onChange((value === "yes") as T)}
           aria-label={label}
           options={["yes", "no"]}
         />

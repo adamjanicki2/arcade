@@ -3,7 +3,6 @@ import { Badge } from "@adamjanicki/ui";
 export type Status = "awaiting" | "ongoing" | "paused" | "gameover" | "success";
 type Props = {
   status: Status;
-  className?: string;
 };
 
 const TYPE_MAP = {
@@ -14,6 +13,6 @@ const TYPE_MAP = {
   gameover: "error",
 } as const;
 
-export default function StatusBadge({ status, className }: Props) {
+export default function StatusBadge({ status }: Props) {
   return <Badge type={TYPE_MAP[status]}>{status}</Badge>;
 }

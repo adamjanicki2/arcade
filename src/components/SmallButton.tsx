@@ -1,9 +1,14 @@
 import { Button } from "@adamjanicki/ui";
+import type { ComponentProps } from "react";
 
-type Props = React.ComponentProps<typeof Button>;
+type Props = ComponentProps<typeof Button>;
 
 export default function SmallButton({ style, ...props }: Props) {
   return (
-    <Button {...props} style={{ fontSize: 12, padding: "4px 6px", ...style }} />
+    <Button
+      {...props}
+      vfx={{ fontSize: "xs", paddingX: "xs", paddingY: "xxs" }}
+      style={style}
+    />
   );
 }

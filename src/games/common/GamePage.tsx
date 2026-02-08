@@ -1,5 +1,6 @@
-import { Button } from "@adamjanicki/ui";
-import React, { useState } from "react";
+import { Box, Button, ui } from "@adamjanicki/ui";
+import { useState } from "react";
+import type { ReactNode } from "react";
 import PageWrapper from "src/components/PageWrapper";
 import HelpButton from "src/games/common/HelpButton";
 import { GeneralSettings, UseSettingsHook } from "src/games/common/settings";
@@ -12,7 +13,6 @@ type Props<T> = {
   children: Children;
   requiresDesktop?: boolean;
   config: Config<T>;
-  containerClassName?: string;
 };
 
 export type Config<T> = {
@@ -21,7 +21,7 @@ export type Config<T> = {
     defaultSettings: T;
     labels: Record<string, string>;
   };
-  help?: React.ReactNode;
+  help?: ReactNode;
   restartEligible?: boolean;
 };
 
@@ -30,7 +30,6 @@ export default function GamePage<T extends GeneralSettings>({
   children,
   requiresDesktop,
   config,
-  containerClassName,
 }: Props<T>) {
   const isMobile = useMobile();
   const { help, settings, restartEligible } = config;
@@ -44,26 +43,34 @@ export default function GamePage<T extends GeneralSettings>({
       ]}
     >
       {requiresDesktop && isMobile ? (
-        <p className="tc">
+        <ui.p vfx={{ textAlign: "center", margin: "none" }}>
           Uh-oh!
-          <br />
+          <ui.br />
           You need a bigger device to play this game.
-        </p>
+        </ui.p>
       ) : (
-        <div key={key} className={containerClassName}>
+        <Box key={key} vfx={{ axis: "y", gap: "s" }}>
           {children}
           {restartEligible && (
-            <div className="flex justify-center mt2">
+            <Box vfx={{ axis: "x", justify: "center", paddingTop: "s" }}>
               <Button onClick={() => setKey((key + 1) % 2)}>Restart</Button>
-            </div>
+            </Box>
           )}
           {(help || settings) && (
-            <div className="flex items-center justify-end mt2">
-              {help && <HelpButton className="mr2">{help}</HelpButton>}
+            <Box
+              vfx={{
+                axis: "x",
+                align: "center",
+                justify: "end",
+                gap: "s",
+                paddingTop: "s",
+              }}
+            >
+              {help && <HelpButton>{help}</HelpButton>}
               {settings && <SettingsButton {...settings} />}
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       )}
     </PageWrapper>
   );

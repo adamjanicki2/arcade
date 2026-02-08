@@ -1,19 +1,6 @@
-.nav {
-  position: sticky;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--background);
-}
-
 .link-container {
   list-style-type: none;
   padding: 0;
-  margin: 15px 0;
-}
-
-.navlink-li {
-  margin-left: 2rem;
 }
 
 .nav-logo {
@@ -28,21 +15,9 @@
   .nav {
     flex-direction: column;
   }
-  .nav-open {
-    height: 100vh;
-  }
   .link-container {
     width: 100%;
     align-items: start;
-  }
-  .navlink-li {
-    margin: 0;
-    width: 100%;
-  }
-  .navlink {
-    width: 100%;
-    display: flex;
-    margin: 0.5rem 0;
   }
   .nav-logo {
     width: 32px;

@@ -14,7 +14,7 @@ export type UseSettingsHook<T> = () => Store<T>;
 
 export function makeUseSettingsHook<T extends GeneralSettings>(
   gameId: string,
-  defaultSettings: T
+  defaultSettings: T,
 ): UseSettingsHook<T> {
   return create(
     persist<Store<T>>(
@@ -25,7 +25,7 @@ export function makeUseSettingsHook<T extends GeneralSettings>(
       {
         name: `arcade-settings-${gameId}`,
         storage: createJSONStorage(() => localStorage),
-      }
-    )
+      },
+    ),
   );
 }
