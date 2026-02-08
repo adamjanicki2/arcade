@@ -1,5 +1,5 @@
 import { Box, ui } from "@adamjanicki/ui";
-import type { CSSProperties, RefObject } from "react";
+import type { ComponentProps, CSSProperties, RefObject } from "react";
 import { useEffect } from "react";
 
 type Props = {
@@ -7,12 +7,14 @@ type Props = {
   canvasRef: RefObject<HTMLCanvasElement | null>;
   className?: string;
   style?: CSSProperties;
+  vfx?: ComponentProps<typeof Box>["vfx"];
 };
 
 export default function Canvas({
   canvasRef,
   className,
   style,
+  vfx,
   multiplicity = 1,
 }: Props) {
   useEffect(() => {
@@ -38,15 +40,9 @@ export default function Canvas({
     <Box
       className={className}
       style={style}
-      vfx={{ axis: "x", align: "center", justify: "center" }}
+      vfx={{ axis: "x", align: "center", justify: "center", ...vfx }}
     >
-      <ui.canvas
-        ref={canvasRef}
-        style={{
-          border: "none",
-          outline: "none",
-        }}
-      />
+      <ui.canvas ref={canvasRef} style={{ border: "none", outline: "none" }} />
     </Box>
   );
 }

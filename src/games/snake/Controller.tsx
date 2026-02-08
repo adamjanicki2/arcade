@@ -150,19 +150,16 @@ export default function Controller() {
     };
   }, [isRunning, direction, handleKeyDown, step, paintCanvas]);
 
-  let status: Status;
-  if (gameOver) {
-    status = "gameover";
-  } else if (isRunning && direction) {
-    status = "ongoing";
-  } else if (!direction) {
-    status = "awaiting";
-  } else {
-    status = "paused";
-  }
+  const status: Status = gameOver
+    ? "gameover"
+    : isRunning && direction
+      ? "ongoing"
+      : !direction
+        ? "awaiting"
+        : "paused";
 
   return (
-    <Box style={{ width: "min-content" }} vfx={{ axis: "y", gap: "s" }}>
+    <Box vfx={{ axis: "y", gap: "s", width: "min" }}>
       <Box vfx={{ axis: "x", justify: "between" }}>
         <StatusBadge status={status} />
         <Badge type="static">SCORE: {score}</Badge>
@@ -172,9 +169,9 @@ export default function Controller() {
         style={{
           width: "min(55vw, 55vh)",
           height: "min(55vw, 55vh)",
-          border: "1px solid currentColor",
-          borderStyle: checkWalls ? "solid" : "dashed",
+          borderColor: "currentColor",
         }}
+        vfx={{ border: true, borderStyle: checkWalls ? "solid" : "dashed" }}
         multiplicity={snake.current.gridSize}
       />
     </Box>

@@ -1,7 +1,6 @@
-import { ui } from "@adamjanicki/ui";
+import { Button, ui } from "@adamjanicki/ui";
 import { useState } from "react";
 import Modal from "src/components/Modal";
-import SmallButton from "src/components/SmallButton";
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +11,9 @@ export default function HelpButton({ children }: Props) {
 
   return (
     <>
-      <SmallButton onClick={() => setOpen(!open)}>Help</SmallButton>
+      <Button size="small" onClick={() => setOpen(!open)}>
+        Help
+      </Button>
       {open && (
         <Modal
           title="Help"

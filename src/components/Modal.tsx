@@ -1,5 +1,4 @@
-import { Box, Layer, ui } from "@adamjanicki/ui";
-import SmallButton from "src/components/SmallButton";
+import { Box, Button, Layer, ui } from "@adamjanicki/ui";
 
 type Props = {
   title: string;
@@ -47,8 +46,14 @@ export default function Modal({
             gap: "s",
           }}
         >
-          {!hideCancel && <SmallButton onClick={onClose}>Cancel</SmallButton>}
-          <SmallButton onClick={handleOk}>{confirmText}</SmallButton>
+          {!hideCancel && (
+            <Button size="small" onClick={onClose}>
+              Cancel
+            </Button>
+          )}
+          <Button size="small" onClick={handleOk}>
+            {confirmText}
+          </Button>
         </Box>
       </Box>
     </Layer>

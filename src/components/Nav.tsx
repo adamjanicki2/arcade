@@ -21,6 +21,11 @@ function Navlink(props: NavlinkProps) {
 function Nav() {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
+  const navItems = [
+    { to: "/", label: "Home" },
+    { to: "/games/", label: "Games" },
+    { to: "/about/", label: "About" },
+  ];
 
   return (
     <ui.nav
@@ -32,13 +37,10 @@ function Nav() {
         paddingY: "s",
         paddingX: "l",
         borderBottom: true,
+        pos: "sticky",
+        z: "nav",
       }}
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 1000,
-        backgroundColor: "var(--background)",
-      }}
+      style={{ top: 0, backgroundColor: "var(--background)" }}
       className="nav"
     >
       <Box
@@ -53,19 +55,21 @@ function Nav() {
         </Box>
       </Box>
       <ui.ul
-        vfx={{ axis: "x", align: "center", gap: "l", margin: "none" }}
+        vfx={{
+          axis: "x",
+          align: "center",
+          gap: "l",
+          margin: "none",
+          width: "full",
+        }}
         className="desktop link-container"
         style={{ display: open ? "flex" : undefined }}
       >
-        <Navlink to="/" onClick={closeMenu}>
-          Home
-        </Navlink>
-        <Navlink to="/games/" onClick={closeMenu}>
-          Games
-        </Navlink>
-        <Navlink to="/about/" onClick={closeMenu}>
-          About
-        </Navlink>
+        {navItems.map((item) => (
+          <Navlink key={item.to} to={item.to} onClick={closeMenu}>
+            {item.label}
+          </Navlink>
+        ))}
       </ui.ul>
     </ui.nav>
   );

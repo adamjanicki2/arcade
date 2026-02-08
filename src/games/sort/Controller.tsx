@@ -1,5 +1,5 @@
 import { Box, ui } from "@adamjanicki/ui";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import StatusBadge, { type Status } from "src/components/StatusBadge";
 import useSettings from "src/games/sort/useSettings";
 import { bound } from "src/util";
@@ -29,14 +29,13 @@ export default function Controller() {
   const lostGame = hasLostGame(slots, randomNumber);
   const isPlaying = slots.some(Boolean);
 
-  let status: Status = "awaiting";
-  if (wonGame) {
-    status = "success";
-  } else if (lostGame && isPlaying) {
-    status = "gameover";
-  } else if (isPlaying) {
-    status = "ongoing";
-  }
+  const status: Status = wonGame
+    ? "success"
+    : lostGame && isPlaying
+      ? "gameover"
+      : isPlaying
+        ? "ongoing"
+        : "awaiting";
 
   return (
     <Box vfx={{ axis: "y", gap: "s" }}>
@@ -60,10 +59,7 @@ export default function Controller() {
             />
           ))}
         </Box>
-        <Box
-          vfx={{ border: true, padding: "m" }}
-          style={{ borderStyle: "dashed", height: "fit-content" }}
-        >
+        <Box vfx={{ border: true, borderStyle: "dashed", padding: "m", height: "fit" }}>
           <ui.span
             draggable={["awaiting", "ongoing"].includes(status)}
             className="page-title-text"
@@ -91,22 +87,27 @@ function Slot({ num, onDrop, maxDigits }: SlotProps) {
   return (
     <Box
       className="page-title-text"
-      vfx={{ axis: "x", border: true, padding: "s", fontWeight: 7 }}
+      vfx={{
+        axis: "x",
+        border: true,
+        borderStyle: num ? "solid" : "dashed",
+        padding: "s",
+        fontWeight: 7,
+        width: "fit",
+      }}
       onDrop={num ? undefined : onDrop}
       onDragOver={num ? undefined : (e) => e.preventDefault()}
       style={{
         minHeight: 30,
         minWidth: 30,
         whiteSpace: "pre-wrap",
-        width: "fit-content",
-        borderStyle: num ? "solid" : "dashed",
       }}
     >
       {num !== undefined
         ? " ".repeat(maxDigits - num.toString().length) + num
         : new Array(maxDigits)
             .fill(undefined)
-            .map((_, i) => <React.Fragment key={i}>&nbsp;</React.Fragment>)}
+            .map((_, i) => <ui.span key={i}>&nbsp;</ui.span>)}
     </Box>
   );
 }

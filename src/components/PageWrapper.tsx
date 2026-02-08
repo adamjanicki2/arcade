@@ -12,7 +12,6 @@ type Props = {
   children: Children;
   title: string;
   documentTitle?: string;
-  titleClass?: string;
   breadcrumbs: Breadcrumb[];
 };
 
@@ -20,7 +19,6 @@ export default function PageWrapper({
   children,
   title,
   documentTitle,
-  titleClass = "",
   breadcrumbs,
 }: Props) {
   useDocumentTitle(`${documentTitle ?? title}`);
@@ -54,10 +52,7 @@ export default function PageWrapper({
         ))}
         <ui.span>{title}</ui.span>
       </Box>
-      <ui.h1
-        className={`page-title-text ${titleClass}`}
-        vfx={{ textAlign: "center", margin: "none" }}
-      >
+      <ui.h1 className="page-title-text" vfx={{ textAlign: "center", margin: "none" }}>
         {title.toUpperCase()}
       </ui.h1>
       {children}

@@ -52,7 +52,7 @@ export default function GamePage<T extends GeneralSettings>({
         <Box key={key} vfx={{ axis: "y", gap: "s" }}>
           {children}
           {restartEligible && (
-            <Box vfx={{ axis: "x", justify: "center", paddingTop: "s" }}>
+            <Box vfx={{ axis: "x", justify: "center" }}>
               <Button onClick={() => setKey((key + 1) % 2)}>Restart</Button>
             </Box>
           )}
@@ -63,7 +63,6 @@ export default function GamePage<T extends GeneralSettings>({
                 align: "center",
                 justify: "end",
                 gap: "s",
-                paddingTop: "s",
               }}
             >
               {help && <HelpButton>{help}</HelpButton>}

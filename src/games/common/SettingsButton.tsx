@@ -1,9 +1,7 @@
-import React from "react";
-import { Box, Input, Select } from "@adamjanicki/ui";
+import { Box, Button, Input, Select } from "@adamjanicki/ui";
 import { useState } from "react";
 import Field from "src/components/Field";
 import Modal from "src/components/Modal";
-import SmallButton from "src/components/SmallButton";
 import type {
   GeneralSettings,
   UseSettingsHook,
@@ -26,7 +24,9 @@ export default function SettingsButton<T extends GeneralSettings>({
 
   return (
     <>
-      <SmallButton onClick={() => setOpen(!open)}>Settings</SmallButton>
+      <Button size="small" onClick={() => setOpen(!open)}>
+        Settings
+      </Button>
       {open && (
         <Modal
           title="Settings"
