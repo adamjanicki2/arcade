@@ -5,7 +5,7 @@ import { useThemePreference } from "src/hooks";
 const options = ["system", "light", "dark"];
 
 export default function Footer() {
-  const { setPreference, preference } = useThemePreference();
+  const [preference, setPreference] = useThemePreference();
   return (
     <ui.footer
       vfx={{
