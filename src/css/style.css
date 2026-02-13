@@ -65,8 +65,8 @@ body {
 }
 
 * {
-  border-radius: 0;
-  text-transform: uppercase;
+  border-radius: 0 !important;
+  text-transform: uppercase !important;
 }
 
 .page-title-text {
