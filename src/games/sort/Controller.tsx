@@ -1,8 +1,9 @@
 import { Box, ui } from "@adamjanicki/ui";
 import { useState } from "react";
-import StatusBadge, { type Status } from "src/components/StatusBadge";
+import StatusBadge from "src/components/StatusBadge";
 import useSettings from "src/games/sort/useSettings";
-import { bound } from "src/util";
+import type { Status } from "src/types";
+import { bound, rng } from "src/util";
 
 export default function Controller() {
   const { settings } = useSettings();
@@ -33,9 +34,7 @@ function SortGame({ maxSlot, inclUpper, maxDigits }: SortGameProps) {
   const [slots, setSlots] = useState<Array<number | undefined>>(
     new Array<number | undefined>(maxSlot).fill(undefined),
   );
-  const [randomNumber, setRandomNumber] = useState(() =>
-    rng(0, inclUpper, []),
-  );
+  const [randomNumber, setRandomNumber] = useState(() => rng(0, inclUpper, []));
 
   const wonGame = slots.length === slots.filter(Boolean).length;
   const lostGame = hasLostGame(slots, randomNumber);
@@ -71,7 +70,14 @@ function SortGame({ maxSlot, inclUpper, maxDigits }: SortGameProps) {
             />
           ))}
         </Box>
-        <Box vfx={{ border: true, borderStyle: "dashed", padding: "m", height: "fit" }}>
+        <Box
+          vfx={{
+            border: true,
+            borderStyle: "dashed",
+            padding: "m",
+            height: "fit",
+          }}
+        >
           <ui.span
             draggable={["awaiting", "ongoing"].includes(status)}
             className="page-title-text"
@@ -122,14 +128,6 @@ function Slot({ num, onDrop, maxDigits }: SlotProps) {
             .map((_, i) => <ui.span key={i}>&nbsp;</ui.span>)}
     </Box>
   );
-}
-
-function rng(min: number, max: number, used: Array<number | undefined>) {
-  let randomNumber = min + Math.floor(Math.random() * (max - min));
-  while (used.includes(randomNumber)) {
-    randomNumber = min + Math.floor(Math.random() * (max - min));
-  }
-  return randomNumber;
 }
 
 function hasLostGame(slots: Array<number | undefined>, randint: number) {

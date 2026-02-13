@@ -1,7 +1,7 @@
 import { Box, ui } from "@adamjanicki/ui";
 import GamePage, { type Config } from "src/games/common/GamePage";
 import Controller from "src/games/sort/Controller";
-import { type Settings,settings } from "src/games/sort/useSettings";
+import { type Settings, settings } from "src/games/sort/useSettings";
 
 const config: Config<Settings> = {
   help: (

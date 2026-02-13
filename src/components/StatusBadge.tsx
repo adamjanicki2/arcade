@@ -1,6 +1,6 @@
 import { Badge } from "@adamjanicki/ui";
+import type { Status } from "src/types";
 
-export type Status = "awaiting" | "ongoing" | "paused" | "gameover" | "success";
 type Props = {
   status: Status;
 };

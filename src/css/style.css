@@ -5,12 +5,20 @@
 
 :root,
 [data-theme="dark"] {
+  --primary: #11ff55;
   --background: black;
-  --main: #11ff55;
-  --aui-link-color: #11ff55;
-  --aui-default-border: #11ff55;
-  --aui-focus-ring-color: #11ff55;
-  --aui-button-primary-background: #11ff55;
+  --main: var(--primary);
+  --aui-link-color: var(--primary);
+  --aui-default-border: var(--primary);
+  --aui-focus-ring-color: var(--primary);
+  --aui-button-primary-background: var(--primary);
+  --selection-color: #b2dbfa;
+  --controller-fill: #333;
+  --controller-outline: var(--primary);
+  --button-green: #00ff00;
+  --button-red: #ff0000;
+  --button-blue: #00c0ff;
+  --button-yellow: #ffff00;
 }
 
 [data-theme="light"] {
@@ -21,14 +29,21 @@
   --aui-focus-ring-color: black;
   --aui-button-primary-background: black;
   --aui-static-border: black;
+  --selection-color: #b2dbfa;
+  --controller-fill: #e9e9e9;
+  --controller-outline: black;
+  --button-green: #28a745;
+  --button-red: #e63946;
+  --button-blue: #0063b2;
+  --button-yellow: #ffb410;
 }
 
 input {
-  box-shadow: inset 0 0 0 1px var(--main) !important;
+  box-shadow: inset 0 0 0 1px var(--main);
 }
 
 input::selection {
-  background-color: #b2dbfa !important;
+  background-color: var(--selection-color);
 }
 
 body {
@@ -50,8 +65,8 @@ body {
 }
 
 * {
-  border-radius: 0 !important;
-  text-transform: uppercase !important;
+  border-radius: 0;
+  text-transform: uppercase;
 }
 
 .page-title-text {

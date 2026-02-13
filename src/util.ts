@@ -18,3 +18,15 @@ export function partition<T>(array: T[], size: number): T[][] {
 
   return out;
 }
+
+export function rng(
+  min: number,
+  max: number,
+  used: Array<number | undefined>,
+): number {
+  let randomNumber = min + Math.floor(Math.random() * (max - min));
+  while (used.includes(randomNumber)) {
+    randomNumber = min + Math.floor(Math.random() * (max - min));
+  }
+  return randomNumber;
+}
