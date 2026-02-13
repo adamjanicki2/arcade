@@ -1,9 +1,9 @@
 import { createStore, persist } from "@adamjanicki/store";
 import useMediaQuery from "@adamjanicki/ui/hooks/useMediaQuery";
 import { useEffect } from "react";
+import type { Theme, ThemePreference } from "src/types";
 
-export type Theme = "light" | "dark";
-export type ThemePreference = Theme | "system";
+export type { Theme, ThemePreference };
 
 export const useThemePreference = createStore<ThemePreference>({
   init: "system",

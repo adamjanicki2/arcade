@@ -52,7 +52,10 @@ export default function PageWrapper({
         ))}
         <ui.span>{title}</ui.span>
       </Box>
-      <ui.h1 className="page-title-text" vfx={{ textAlign: "center", margin: "none" }}>
+      <ui.h1
+        className="page-title-text"
+        vfx={{ textAlign: "center", margin: "none" }}
+      >
         {title.toUpperCase()}
       </ui.h1>
       {children}

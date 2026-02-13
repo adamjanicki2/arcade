@@ -6,6 +6,7 @@ import type {
   GeneralSettings,
   UseSettingsHook,
 } from "src/games/common/settings";
+import { useModalButton } from "src/hooks";
 
 type Props<T> = {
   defaultSettings: T;
@@ -20,18 +21,18 @@ export default function SettingsButton<T extends GeneralSettings>({
 }: Props<T>) {
   const { settings, setSettings } = useSettings();
   const [currentSettings, setCurrentSettings] = useState<T>(settings);
-  const [open, setOpen] = useState(false);
+  const { isOpen, toggle, close } = useModalButton();
 
   return (
     <>
-      <Button size="small" onClick={() => setOpen(!open)}>
+      <Button size="small" onClick={toggle}>
         Settings
       </Button>
-      {open && (
+      {isOpen && (
         <Modal
           title="Settings"
           onConfirm={() => setSettings(currentSettings)}
-          onClose={() => setOpen(false)}
+          onClose={close}
         >
           <Box vfx={{ axis: "y", gap: "s" }}>
             {Object.entries(currentSettings).map(
