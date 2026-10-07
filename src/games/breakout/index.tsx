@@ -1,20 +1,20 @@
 import { Box, ui } from "@adamjanicki/ui";
+import Controller from "src/games/breakout/Controller";
+import { type Settings, settings } from "src/games/breakout/useSettings";
 import GamePage, { type Config } from "src/games/common/GamePage";
-import Controller from "src/games/snake/Controller";
-import { type Settings, settings } from "src/games/snake/useSettings";
 
 const config: Config<Settings> = {
   help: (
     <Box vfx={{ axis: "y", gap: "s" }}>
       <ui.p vfx={{ margin: "none" }}>
-        I've built a version of the classic JavaScript Snake game! Follow these
-        instructions to play!
+        A classic Breakout game! Use your paddle to bounce the ball and destroy
+        all the bricks.
       </ui.p>
       <ui.p vfx={{ margin: "none" }}>Instructions</ui.p>
       <ui.ol vfx={{ margin: "none", paddingLeft: "m" }}>
-        <ui.li>Press any arrow key to get started</ui.li>
-        <ui.li>Use the arrow keys to navigate the board</ui.li>
-        <ui.li>Eat as many apples as possible to get the highest score</ui.li>
+        <ui.li>Press Space to launch the ball</ui.li>
+        <ui.li>Use the arrow keys to move your paddle left and right</ui.li>
+        <ui.li>Break all the bricks to win</ui.li>
         <ui.li>
           Adjust your settings by clicking on the button in the bottom right
           corner
@@ -22,10 +22,9 @@ const config: Config<Settings> = {
       </ui.ol>
       <ui.p vfx={{ margin: "none" }}>Keyboard shortcuts:</ui.p>
       <ui.ul vfx={{ margin: "none", paddingLeft: "m" }}>
-        <ui.li>↑ - Move Up</ui.li>
-        <ui.li>↓ - Move Down</ui.li>
-        <ui.li>← - Move Left</ui.li>
-        <ui.li>→ - Move Right</ui.li>
+        <ui.li>Space - Launch ball</ui.li>
+        <ui.li>← - Move paddle left</ui.li>
+        <ui.li>→ - Move paddle right</ui.li>
         <ui.li>p - Pause/Play</ui.li>
         <ui.li>r - Restart</ui.li>
       </ui.ul>
@@ -35,9 +34,9 @@ const config: Config<Settings> = {
   restartEligible: true,
 };
 
-export default function Snake() {
+export default function Breakout() {
   return (
-    <GamePage title="Snake" requiresDesktop config={config}>
+    <GamePage title="Breakout" requiresDesktop config={config}>
       <Controller />
     </GamePage>
   );

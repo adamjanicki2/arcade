@@ -1,10 +1,11 @@
 import { Badge, Box } from "@adamjanicki/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Canvas from "src/components/Canvas";
-import StatusBadge, { type Status } from "src/components/StatusBadge";
+import StatusBadge from "src/components/StatusBadge";
 import Snake from "src/games/snake/snake";
 import useSettings from "src/games/snake/useSettings";
-import { useTheme } from "src/hooks";
+import { useKeydown, useTheme } from "src/hooks";
+import type { Status } from "src/types";
 import { bound, fpsToMS } from "src/util";
 
 const DIR_MAP = new Map([
@@ -99,7 +100,8 @@ export default function Controller() {
     [moveLocked, gameOver, resetGameState],
   );
 
-  const step = useCallback(function stepFn(timestamp: number) {
+  const step = useCallback(
+    function stepFn(timestamp: number) {
       if (!isRunning) {
         return;
       }
@@ -132,9 +134,9 @@ export default function Controller() {
     resetGameState();
   }, [gridSize, resetGameState]);
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
+  useKeydown(handleKeyDown);
 
+  useEffect(() => {
     if (isRunning) {
       lastUpdateTimeRef.current = performance.now(); // Initialize the timestamp
       animationFrameId.current = requestAnimationFrame(step);
@@ -144,12 +146,11 @@ export default function Controller() {
     }
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [isRunning, direction, handleKeyDown, step, paintCanvas]);
+  }, [isRunning, direction, step, paintCanvas]);
 
   const status: Status = gameOver
     ? "gameover"
